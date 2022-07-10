@@ -4,7 +4,6 @@ import "github.com/spf13/cobra"
 
 type purgeCmd struct {
 	*Options
-	root *cobra.Command
 }
 
 func (c purgeCmd) command() *cobra.Command {

@@ -9,14 +9,14 @@ import (
 
 type deployCmd struct {
 	*Options
-	root *cobra.Command
 }
 
 func (c deployCmd) command() *cobra.Command {
 	return &cobra.Command{
-		Use:   "deploy",
-		Short: "Deploy a Kubernetes cluster",
-		RunE:  c.run,
+		Use:          "deploy",
+		Short:        "Deploy a Kubernetes cluster",
+		RunE:         c.run,
+		SilenceUsage: true,
 	}
 }
 
