@@ -1,9 +1,10 @@
-package main
+package main_test
 
 import (
 	"bytes"
 	"testing"
 
+	main "github.com/cardil/k1s/cmd/k1s"
 	"github.com/cardil/k1s/internal/cli"
 	"github.com/stretchr/testify/assert"
 	"github.com/wavesoftware/go-commandline"
@@ -11,7 +12,7 @@ import (
 
 func TestTheMain(t *testing.T) {
 	s := capture(func() {
-		main()
+		main.RunMain()
 	})
 
 	assert.Equal(t, 0, s.exitCode)

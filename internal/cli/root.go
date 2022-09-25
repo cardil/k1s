@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/cardil/k1s/pkg/stack"
@@ -15,8 +16,9 @@ type App struct {
 
 func (a *App) Command() *cobra.Command {
 	r := &cobra.Command{
-		Use:   "k1s",
-		Short: "Kubernetes as an API using k3s",
+		Use:          "k1s",
+		Short:        "Kubernetes as an API using k3s",
+		SilenceUsage: true,
 	}
 	a.flags(r)
 	sc := []subcommand{
@@ -26,6 +28,7 @@ func (a *App) Command() *cobra.Command {
 	for _, s := range sc {
 		r.AddCommand(s.command())
 	}
+	r.SetOut(os.Stdout)
 	return r
 }
 
@@ -42,8 +45,9 @@ func (a *App) flags(r *cobra.Command) {
 }
 
 func stacks() []string {
-	var ss []string
-	for s := range stack.Mapping() {
+	m := stack.Mapping()
+	ss := make([]string, 0, len(m))
+	for s := range m {
 		ss = append(ss, s.String())
 	}
 	return ss

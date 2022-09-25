@@ -6,7 +6,7 @@ import (
 	"github.com/wavesoftware/go-commandline"
 )
 
-var Opts []commandline.Option
+var Opts []commandline.Option //nolint:gochecknoglobals
 
 // Options holds a general args for all commands.
 type Options struct {

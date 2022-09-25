@@ -26,6 +26,7 @@ linters:
     - golint
     - ireturn
     - varnamelen
+    - exhaustruct
 
 issues:
   exclude-rules:

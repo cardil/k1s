@@ -6,6 +6,10 @@ import (
 )
 
 func main() {
-	app := new(cli.App)
-	commandline.New(app).ExecuteOrDie(cli.Opts...)
+	commandline.New(&cli.App{}).ExecuteOrDie(cli.Opts...)
+}
+
+// RunMain is used for testing.
+func RunMain() { //nolint:deadcode
+	main()
 }
