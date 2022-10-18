@@ -3,11 +3,13 @@ module github.com/cardil/k1s
 go 1.18
 
 require (
+	github.com/mitchellh/go-homedir v1.1.0
 	github.com/pulumi/pulumi/sdk/v3 v3.35.1
 	github.com/spf13/cobra v1.5.0
 	github.com/stretchr/testify v1.6.1
 	github.com/thediveo/enumflag v0.10.1
 	github.com/wavesoftware/go-commandline v1.0.0
+	golang.org/x/mod v0.3.0
 )
 
 require (
@@ -30,7 +32,6 @@ require (
 	github.com/kevinburke/ssh_config v0.0.0-20190725054713-01f96b0aa0cd // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mattn/go-runewidth v0.0.8 // indirect
-	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-ps v1.0.0 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/opentracing/basictracer-go v1.0.0 // indirect
@@ -55,6 +56,7 @@ require (
 	golang.org/x/net v0.0.0-20201021035429-f5854403a974 // indirect
 	golang.org/x/sys v0.0.0-20210817190340-bfb29a6856f2 // indirect
 	golang.org/x/text v0.3.3 // indirect
+	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/genproto v0.0.0-20200608115520-7c474a2e3482 // indirect
 	google.golang.org/grpc v1.29.1 // indirect
 	google.golang.org/protobuf v1.24.0 // indirect
