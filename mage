@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+rootdir="$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")"
+cd "${rootdir}"
+
+exec go run build/mage.go "$@"
