@@ -20,5 +20,5 @@ func wrapErr(err, target error) error {
 	if errors.Is(err, target) {
 		return err
 	}
-	return fmt.Errorf("%w: %v", target, err)
+	return fmt.Errorf("%w: %w", target, err)
 }

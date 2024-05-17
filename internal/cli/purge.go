@@ -14,6 +14,6 @@ func (c purgeCmd) command() *cobra.Command {
 	}
 }
 
-func (c purgeCmd) run(cmd *cobra.Command, args []string) error {
+func (c purgeCmd) run(_ *cobra.Command, _ []string) error {
 	return nil
 }

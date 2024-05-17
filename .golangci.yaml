@@ -29,6 +29,7 @@ linters:
     - ireturn
     - varnamelen
     - exhaustruct
+    - depguard
 
 issues:
   exclude-rules:

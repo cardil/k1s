@@ -4,7 +4,7 @@ import (
 	"path"
 	"runtime"
 
-	"github.com/wavesoftware/go-magetasks/entrypoint"
+	"knative.dev/toolbox/magetasks/entrypoint"
 )
 
 // Main is the main entry point for the mage command.

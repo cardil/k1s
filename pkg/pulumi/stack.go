@@ -21,7 +21,7 @@ type Stack interface {
 }
 
 func CreateStack(ctx context.Context, pc ProjectConfig) (Stack, error) {
-	bin, err := ensurePulumiBinary()
+	bin, err := ensurePulumiBinary(ctx)
 	if err != nil {
 		return nil, err
 	}
