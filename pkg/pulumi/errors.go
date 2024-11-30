@@ -11,6 +11,9 @@ var (
 
 	// ErrUnexpected is returned when an unexpected error is encountered.
 	ErrUnexpected = errors.New("unexpected")
+
+	// ErrInvalidCode is returned when the pulumi fail to apply.
+	ErrInvalidCode = errors.New("invalid Pulumi code")
 )
 
 func wrapErr(err, target error) error {

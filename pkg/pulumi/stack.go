@@ -2,7 +2,6 @@ package pulumi
 
 import (
 	"context"
-	"os"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
@@ -17,33 +16,32 @@ type ProjectConfig struct {
 
 type Stack interface {
 	Up(ctx context.Context, opts ...optup.Option) (auto.UpResult, error)
-	CleanUp()
 }
 
 func CreateStack(ctx context.Context, pc ProjectConfig) (Stack, error) {
-	bin, err := ensurePulumiBinary(ctx)
-	if err != nil {
-		return nil, err
+	stackFn := func() (Stack, error) {
+		s, err := auto.UpsertStackInlineSource(ctx, pc.Stack, pc.Project, pc.RunFunc)
+		if err != nil {
+			return nil, wrapErr(err, ErrBug)
+		}
+		return &s, nil
 	}
-	oldPath := os.Getenv("PATH")
-	if err = os.Setenv("PATH", bin+":"+oldPath); err != nil {
-		return nil, wrapErr(err, ErrBug)
-	}
-	var s auto.Stack
-	s, err = auto.UpsertStackInlineSource(ctx, pc.Stack, pc.Project, pc.RunFunc)
-	if err != nil {
-		return nil, wrapErr(err, ErrBug)
-	}
-	return tempPathStack{oldPath, &s}, nil
-}
 
-type tempPathStack struct {
-	old string
-	*auto.Stack
-}
-
-func (t tempPathStack) CleanUp() {
-	if err := os.Setenv("PATH", t.old); err != nil {
-		panic(err)
+	creators := []func(func() (Stack, error)) (Stack, error){
+		newBinaryOnPathStack,
+		newLoggedInStack,
+		newManagedPassphaseStack,
 	}
+
+	fn := stackFn
+	for i := range creators {
+		creator := creators[len(creators)-1-i]
+		fn = func(currentFn func() (Stack, error)) func() (Stack, error) {
+			return func() (Stack, error) {
+				return creator(currentFn)
+			}
+		}(fn)
+	}
+
+	return fn()
 }

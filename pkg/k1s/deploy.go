@@ -13,9 +13,8 @@ func Deploy(core App, stack string) error {
 		RunFunc: Project,
 	})
 	if err != nil {
-		return wrapErr(err, ErrBug)
+		return wrapErr(err, ErrInvalidCode)
 	}
-	defer s.CleanUp()
 	_, err = s.Up(ctx, optup.ProgressStreams(core.OutOrStdout()))
 	return wrapErr(err, ErrUnexpected)
 }
