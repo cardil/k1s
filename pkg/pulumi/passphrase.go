@@ -12,19 +12,19 @@ import (
 	"knative.dev/pkg/logging"
 )
 
-func newManagedPassphaseStack(fn func() (Stack, error)) (Stack, error) {
-	return &managedPassphaseStack{fn: fn}, nil
+func newManagedPassphraseStack(fn func() (Stack, error)) (Stack, error) {
+	return &managedPassphraseStack{fn: fn}, nil
 }
 
-type managedPassphaseStack struct {
+type managedPassphraseStack struct {
 	fn func() (Stack, error)
 }
 
-func (m *managedPassphaseStack) Up(ctx context.Context, opts ...optup.Option) (auto.UpResult, error) {
-	if err := m.setupPassphase(); err != nil {
+func (m *managedPassphraseStack) Up(ctx context.Context, opts ...optup.Option) (auto.UpResult, error) {
+	if err := m.setupPassphrase(); err != nil {
 		return auto.UpResult{}, err
 	}
-	defer m.cleanUpPassphase(ctx)
+	defer m.cleanUpPassphrase(ctx)
 	s, err := m.fn()
 	if err != nil {
 		return auto.UpResult{}, err
@@ -32,7 +32,7 @@ func (m *managedPassphaseStack) Up(ctx context.Context, opts ...optup.Option) (a
 	return s.Up(ctx, opts...) //nolint:wrapcheck
 }
 
-func (m *managedPassphaseStack) setupPassphase() error {
+func (m *managedPassphraseStack) setupPassphrase() error {
 	secret, err := m.generateOrGetSecret()
 	if err != nil {
 		return err
@@ -43,14 +43,14 @@ func (m *managedPassphaseStack) setupPassphase() error {
 	return nil
 }
 
-func (m *managedPassphaseStack) cleanUpPassphase(ctx context.Context) {
+func (m *managedPassphraseStack) cleanUpPassphrase(ctx context.Context) {
 	if err := os.Unsetenv("PULUMI_CONFIG_PASSPHRASE"); err != nil {
 		log := logging.FromContext(ctx)
 		log.Fatal(wrapErr(err, ErrUnexpected))
 	}
 }
 
-func (m *managedPassphaseStack) generateOrGetSecret() (string, error) {
+func (m *managedPassphraseStack) generateOrGetSecret() (string, error) {
 	if secret := os.Getenv("K1S_PULUMI_CONFIG_PASSPHRASE"); secret != "" {
 		return secret, nil
 	}

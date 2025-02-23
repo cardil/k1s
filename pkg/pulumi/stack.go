@@ -30,7 +30,7 @@ func CreateStack(ctx context.Context, pc ProjectConfig) (Stack, error) {
 	creators := []func(func() (Stack, error)) (Stack, error){
 		newBinaryOnPathStack,
 		newLoggedInStack,
-		newManagedPassphaseStack,
+		newManagedPassphraseStack,
 	}
 
 	fn := stackFn
