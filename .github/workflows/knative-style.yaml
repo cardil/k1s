@@ -1,0 +1,12 @@
+name: Code Style
+
+on:
+  push:
+    branches: [ 'main', 'release-*' ]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+
+  style:
+    uses: knative/actions/.github/workflows/style.yaml@main
