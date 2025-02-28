@@ -15,7 +15,7 @@ func Setup(ctx context.Context) error {
 		return err
 	}
 	_, err = st.Up(ctx)
-	return err
+	return err //nolint:wrapcheck
 }
 
 type setupStack struct{}
