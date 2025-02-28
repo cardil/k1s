@@ -24,6 +24,7 @@ func (a *App) Command() *cobra.Command {
 	sc := []subcommand{
 		&deployCmd{&a.Options},
 		&purgeCmd{&a.Options},
+		&setupCmd{},
 	}
 	for _, s := range sc {
 		r.AddCommand(s.command())

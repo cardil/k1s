@@ -31,7 +31,10 @@ jobs:
         id: go
 
       - name: Check out code into the Go module directory
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Workaround for knative.dev/client/pkg/output/tui/progress_test.go#L3-L4
+        run: go run ./cmd/k1s setup
 
       - name: Test
         run: ./mage test
